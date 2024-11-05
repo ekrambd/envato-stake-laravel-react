@@ -6,10 +6,16 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Repositories\Auth\AuthInterface;
 use App\Repositories\Auth\AuthRepository;
-use App\Repositories\category\CategoryInterface;
-use App\Repositories\category\CategoryRepository;
-use App\Repositories\service\ServiceInterface;
-use App\Repositories\service\ServiceRepository;
+
+use App\Repositories\Category\CategoryInterface;
+use App\Repositories\Category\CategoryRepository;
+
+use App\Repositories\Service\ServiceInterface;
+use App\Repositories\Service\ServiceRepository;
+
+use App\Repositories\Package\PackageInterface;
+use App\Repositories\Package\PackageRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -18,8 +24,12 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(AuthInterface::class, AuthRepository::class);
+
         $this->app->bind(CategoryInterface::class, CategoryRepository::class);
+
         $this->app->bind(ServiceInterface::class, ServiceRepository::class);
+        
+        $this->app->bind(PackageInterface::class, PackageRepository::class);
     }
 
     /**

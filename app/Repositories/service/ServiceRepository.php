@@ -42,7 +42,7 @@
  				'status' => $request->status,
  			]);
 
- 			return response()->json(['status'=>true, 'service_id'=>intval($service->id), 'message'=>'Successfully a service has been added']);
+ 			return response()->json(['status'=>true, 'service_id'=>intval($service->id), 'message'=>'Successfully a Service has been added']);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
@@ -64,7 +64,7 @@
  			$service->title = $request->title;
  			$service->status = $request->status;
  			$service->update();
- 			return response()->json(['status'=>true, 'service_id'=>intval($service->id), 'message'=>"Successfully the service has been updated"]);
+ 			return response()->json(['status'=>true, 'service_id'=>intval($service->id), 'message'=>"Successfully the Service has been updated"]);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
@@ -75,7 +75,7 @@
  		try
  		{
  			$service->delete();
- 			return response()->json(['status'=>true, 'message'=>"Successfully the servie has been deleted"]);
+ 			return response()->json(['status'=>true, 'message'=>"Successfully the Servie has been deleted"]);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
@@ -88,7 +88,7 @@
  			$service = $this->fetch($request)->findorfail($request->service_id);
  			$service->status = $request->status;
  			$service->update();
- 			return response()->json(['status'=>true, 'message'=>"Successfully the service's status has been updated"]);
+ 			return response()->json(['status'=>true, 'message'=>"Successfully the Service's status has been updated"]);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}

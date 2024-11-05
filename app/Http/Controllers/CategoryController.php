@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Repositories\category\CategoryInterface;
+use App\Repositories\Category\CategoryInterface;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+   
     protected $category;
+    
     public function __construct(CategoryInterface $category)
     {
         $this->category = $category;
     }
 
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {   
         $categories = $this->category->fetch($request)->latest()->paginate(10);

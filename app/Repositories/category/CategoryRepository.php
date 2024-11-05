@@ -41,7 +41,7 @@
  				'status' => $request->status
  			]);
 
- 			return response()->json(['status'=>true, 'category_id'=>intval($category->id), 'message'=>'Successfully a category has been added']);
+ 			return response()->json(['status'=>true, 'category_id'=>intval($category->id), 'message'=>'Successfully a Category has been added']);
 
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
@@ -64,7 +64,7 @@
  			$category->category_name = $request->category_name;
  			$category->status = $request->status;
  			$category->update();
- 			return response()->json(['status'=>true, 'category_id'=>intval($category->id), 'message'=>'Successfully the category has been updated']);
+ 			return response()->json(['status'=>true, 'category_id'=>intval($category->id), 'message'=>'Successfully the Category has been updated']);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
@@ -75,7 +75,7 @@
  		try
  		{
  			$category->delete();
- 			return response()->json(['status'=>true, 'message'=>"Successfully the category has been deleted"]);
+ 			return response()->json(['status'=>true, 'message'=>"Successfully the Category has been deleted"]);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
@@ -88,7 +88,7 @@
  			$category = $this->fetch($request)->findorfail($request->category_id);
  			$category->status = $request->status;
  			$category->update();
- 			return response()->json(['status'=>true, 'message'=>"Successfully the category's status has been updated"]);
+ 			return response()->json(['status'=>true, 'message'=>"Successfully the Category's status has been updated"]);
  		}catch(Exception $e){
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}

@@ -9,6 +9,16 @@ class Package extends Model
 {
     use HasFactory;
 
+	protected $fillable = [
+    	'user_id',
+        'category_id',
+        'title',
+        'price',
+        'stake_duration',
+        'interest_rate',
+        'status',
+    ];
+
     public function services()
 	{
 	    return $this->belongsToMany(Service::class);

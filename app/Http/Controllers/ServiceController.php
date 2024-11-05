@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
-use App\Repositories\service\ServiceInterface;
+use App\Repositories\Service\ServiceInterface;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     protected $service;
 
     public function __construct(ServiceInterface $service)
@@ -18,6 +16,9 @@ class ServiceController extends Controller
         $this->service = $service;
     }
 
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $services = $this->service->fetch($request)->latest()->paginate(10);
