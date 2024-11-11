@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title')->unique();
             $table->float('price',10,2);
             $table->float('stake_duration',10,2);
+            $table->enum('duration_unit', ['Day', 'Week','Month',"Year"]);
             $table->float('interest_rate',10,2);
             $table->enum('status', ['Active', 'Inactive']);
             $table->timestamps();
