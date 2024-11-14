@@ -1,7 +1,9 @@
 <?php
  namespace App\Repositories\Package;
  use App\Models\Package;
+ use App\Models\Service;
  use Validator;
+ use DB;
 
  class PackageRepository implements PackageInterface
  {
@@ -24,6 +26,8 @@
 
  	public function store($request)
  	{
+		DB::beginTransaction();
+
  		try
  		{   
 
@@ -40,7 +44,7 @@
                 return response()->json(['status'=>false, 'message'=>'The given data was invalid', 'data'=>$validator->errors()],422);  
             }
 		
-
+			
  			$package = Package::create([
  				'user_id' => user()->id,
  				'category_id' => $request->category_id,
@@ -50,15 +54,23 @@
  				'interest_rate' => $request->interest_rate,
  				'status' => $request->status,
  			]);
+			
+			$servicesId = Service::pluck('id')->toArray();
+			$package->services()->sync($servicesId);
+
+			DB::commit();
 
  			return response()->json(['status'=>true, 'package_id'=>intval($package->id), 'message'=>'Successfully a Package has been added']);
  		}catch(Exception $e){
+			DB::rollback();
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
  	}
 
  	public function update($request,$package)
  	{
+		DB::beginTransaction();
+
  		try
  		{   
  			$validator = Validator::make($request->all(), [
@@ -77,19 +89,32 @@
  			$package->interest_rate = $request->interest_rate;
  			$package->status = $request->status;
  			$package->update();
+
+			 $servicesId = Service::pluck('id')->toArray();
+			 $package->services()->sync($servicesId);
+
+			 DB::commit();
+
  			return response()->json(['status'=>true, 'package_id'=>intval($package->id), 'message'=>"Successfully the Package has been updated"]);
  		}catch(Exception $e){
+
+			DB::rollback();
+
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
  	}
 
  	public function delete($package)
  	{
+		DB::beginTransaction();
  		try
  		{
+			$package->services()->detach();
  			$package->delete();
+			 DB::commit();
  			return response()->json(['status'=>true, 'message'=>"Successfully the Package has been deleted"]);
  		}catch(Exception $e){
+			DB::rollback();
  			return response()->json(['status'=>false, 'code'=>$e->getCode(), 'message'=>$e->getMessage()],500);
  		}
  	}
